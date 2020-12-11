@@ -179,7 +179,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <com.example.duan1.Model.SquareImageView
+            <com.example.duan1.Model.Material.SquareImageView
                 android:id="@+id/sivEdit"
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"

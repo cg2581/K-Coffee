@@ -61,7 +61,7 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <com.example.duan1.Model.SquareImageView
+    <com.example.duan1.Model.Material.SquareImageView
         android:id="@+id/sivRemove"
         android:layout_width="24dp"
         android:layout_height="0dp"

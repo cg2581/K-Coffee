@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.duan1.DAO.FavoriteDAO;
 import com.example.duan1.Model.Favorite;
 import com.example.duan1.Model.Product;
-import com.example.duan1.Model.SquareImageView;
+import com.example.duan1.Model.Material.SquareImageView;
 import com.example.duan1.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

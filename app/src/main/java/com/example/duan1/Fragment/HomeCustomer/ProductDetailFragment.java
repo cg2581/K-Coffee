@@ -20,7 +20,7 @@ import com.example.duan1.DAO.ProductDAO;
 import com.example.duan1.Model.CartItem;
 import com.example.duan1.Model.Favorite;
 import com.example.duan1.Model.Product;
-import com.example.duan1.Model.SquareImageView;
+import com.example.duan1.Model.Material.SquareImageView;
 import com.example.duan1.R;
 import com.squareup.picasso.Picasso;
 

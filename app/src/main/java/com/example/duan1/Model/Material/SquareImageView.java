@@ -1,4 +1,4 @@
-package com.example.duan1.Model;
+package com.example.duan1.Model.Material;
 
 import android.content.Context;
 import android.util.AttributeSet;

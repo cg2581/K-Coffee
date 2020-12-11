@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.Model.Product;
-import com.example.duan1.Model.SquareImageView;
+import com.example.duan1.Model.Material.SquareImageView;
 import com.example.duan1.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DatabaseReference;

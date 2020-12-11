@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.example.duan1.Model.SquareImageView
+                <com.example.duan1.Model.Material.SquareImageView
                     android:id="@+id/sivProduct"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

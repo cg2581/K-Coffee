@@ -19,7 +19,7 @@ import com.example.duan1.DAO.CartDAO;
 import com.example.duan1.DAO.InvoiceDAO;
 import com.example.duan1.Model.CartItem;
 import com.example.duan1.Model.Invoice;
-import com.example.duan1.Model.SquareImageView;
+import com.example.duan1.Model.Material.SquareImageView;
 import com.example.duan1.Model.User;
 import com.example.duan1.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;

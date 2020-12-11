@@ -18,7 +18,7 @@ import com.example.duan1.Adapter.InvoiceAdminAdapter;
 import com.example.duan1.Adapter.MenuAdapter;
 import com.example.duan1.Model.Invoice;
 import com.example.duan1.Model.MenuItem;
-import com.example.duan1.Model.SquareImageView;
+import com.example.duan1.Model.Material.SquareImageView;
 import com.example.duan1.Model.User;
 import com.example.duan1.R;
 import com.google.firebase.database.ChildEventListener;

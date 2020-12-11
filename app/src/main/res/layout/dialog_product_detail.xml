@@ -20,7 +20,7 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp">
 
-            <com.example.duan1.Model.SquareImageView
+            <com.example.duan1.Model.Material.SquareImageView
                 android:id="@+id/sivProduct"
                 android:layout_width="128dp"
                 android:layout_height="0dp" />
@@ -99,7 +99,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.example.duan1.Model.SquareImageView
+    <com.example.duan1.Model.Material.SquareImageView
         android:id="@+id/sivEdit"
         android:layout_width="24dp"
         android:layout_height="0dp"
