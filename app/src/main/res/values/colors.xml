@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimary">@color/Main</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <!-- Template color -->
@@ -151,4 +151,6 @@
     <color name="Cancelled">#FF0000</color>
     <color name="Ordered">#52c4d6</color>
     <color name="Delivered">#32CD32</color>
+    <!-- -->
+    <color name="Main">#52c4d6</color>
 </resources>

@@ -31,20 +31,20 @@
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
+            style="@style/customCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="0dp">
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp">
 
             <LinearLayout
+                style="@style/linearLayoutInCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:padding="8dp">
+                android:padding="16dp">
 
                 <LinearLayout
                     android:id="@+id/llDrink"
@@ -68,10 +68,9 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/view"
                     android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/Black" />
+                    android:background="@color/Main" />
 
                 <LinearLayout
                     android:id="@+id/llFood"

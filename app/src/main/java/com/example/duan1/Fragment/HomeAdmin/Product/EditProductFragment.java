@@ -20,8 +20,6 @@ import com.example.duan1.Model.Product;
 import com.example.duan1.R;
 import com.squareup.picasso.Picasso;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class EditProductFragment extends Fragment implements ProductDAO.UpdateProductInterface {
     ImageView ivProduct;
     EditText edtName, edtPrice, edtDescribe, edtCode;
@@ -67,7 +65,7 @@ public class EditProductFragment extends Fragment implements ProductDAO.UpdatePr
                 if (validate()) {
                     String name = edtName.getText().toString();
                     String code = edtCode.getText().toString();
-                    String describe = edtCode.getText().toString();
+                    String describe = edtDescribe.getText().toString();
                     long price = Long.parseLong(edtPrice.getText().toString());
                     Product newProduct = new Product(oldProduct.getType(), name, code, price, describe);
                     newProduct.setId(oldProduct.getId());
@@ -104,7 +102,7 @@ public class EditProductFragment extends Fragment implements ProductDAO.UpdatePr
     }
 
     private boolean validate() {
-        if (edtName.getText().toString().isEmpty() || edtCode.getText().toString().isEmpty() || edtDescribe.getText().toString().isEmpty() || edtPrice.getText().toString().isEmpty()) {
+        if (edtName.getText().toString().isEmpty() || edtCode.getText().toString().isEmpty() || edtPrice.getText().toString().isEmpty()) {
             Toast.makeText(getContext(), "Các trường không được để trống", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -127,6 +125,8 @@ public class EditProductFragment extends Fragment implements ProductDAO.UpdatePr
 
     @Override
     public void upadeSuccess() {
+
+        ((HomeAdminActivity) getActivity()).uri = null;
         getActivity().onBackPressed();
     }
 }

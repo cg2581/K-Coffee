@@ -10,7 +10,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cập nhật thông tin người nhận"
+        android:text="Tiêu đề"
         android:textAlignment="center"
         android:textColor="@color/Black"
         android:textSize="18sp"
@@ -20,15 +20,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnCancel"
+            style="@style/cancelButton"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/Red"
             android:text="Không" />
 
         <Button
@@ -36,7 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/LimeGreen"
+            android:layout_marginStart="8dp"
+            style="@style/confirmButton2"
             android:text="Có" />
 
     </LinearLayout>

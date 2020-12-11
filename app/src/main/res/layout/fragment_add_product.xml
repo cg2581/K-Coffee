@@ -25,46 +25,48 @@
             <ImageView
                 android:id="@+id/ivProduct"
                 android:layout_width="128dp"
-                android:src="@drawable/ic_baseline_add_to_photos_24"
-                android:layout_height="128dp" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="128dp"
+                android:src="@drawable/ic_baseline_add_to_photos_24" />
 
+        </androidx.cardview.widget.CardView>
 
         <EditText
             android:id="@+id/edtName"
-            android:layout_width="@dimen/dp_300"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginTop="@dimen/dp_16"
-            android:hint="Tên sản phẩm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nhập tên"
             android:inputType="text"
-            android:paddingLeft="@dimen/dp_5" />
+            android:minWidth="300dp" />
 
         <EditText
             android:id="@+id/edtCode"
-            android:layout_width="@dimen/dp_300"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginTop="@dimen/dp_16"
-            android:hint="Mã sản phẩm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nhập mã"
             android:inputType="text"
-            android:paddingLeft="@dimen/dp_5" />
+            android:minWidth="300dp" />
 
         <EditText
             android:id="@+id/edtPrice"
-            android:layout_width="@dimen/dp_300"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginTop="@dimen/dp_16"
-            android:hint="Giá sản phẩm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nhập giá"
             android:inputType="number"
-            android:paddingLeft="@dimen/dp_5" />
+            android:minWidth="300dp" />
 
         <EditText
             android:id="@+id/edtDescribe"
-            android:layout_width="@dimen/dp_300"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginTop="@dimen/dp_16"
-            android:hint="Mô tả sản phẩm"
-            android:inputType="text"
-            android:paddingLeft="@dimen/dp_5" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nhập mô tả"
+            android:imeOptions="actionDone"
+            android:inputType="textPersonName"
+            android:minWidth="300dp" />
+
 
     </LinearLayout>
 

@@ -90,8 +90,8 @@ public class ProductDetailFragment extends Fragment implements ProductDAO.GetPro
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartItem cartItem = new CartItem(product.getId(), product.getPrice(), 1);
-                if (!cartDAO.checkExist(product.getId())) {
+                CartItem cartItem = new CartItem(productId, product.getPrice(), 1);
+                if (!cartDAO.checkExist(productId)) {
                     cartDAO.insert(cartItem);
                 }
             }
@@ -99,8 +99,8 @@ public class ProductDetailFragment extends Fragment implements ProductDAO.GetPro
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartItem cartItem = new CartItem(product.getId(), product.getPrice(), 1);
-                if (!cartDAO.checkExist(product.getId())) {
+                CartItem cartItem = new CartItem(productId, product.getPrice(), 1);
+                if (!cartDAO.checkExist(productId)) {
                     cartDAO.insert(cartItem);
                 }
                 ((HomeUserActivity) getActivity()).switchFragment(new CartFragment());

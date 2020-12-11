@@ -184,14 +184,18 @@ public class InvoiceDAO {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(context, type, Toast.LENGTH_SHORT).show();
+                        if (type.equalsIgnoreCase("cancelled")) {
+                            Toast.makeText(context, "Hủy đơn hàng thành công", Toast.LENGTH_SHORT).show();
+                        } else if (type.equalsIgnoreCase("ordered")) {
+                            Toast.makeText(context, "Xác nhận thành công", Toast.LENGTH_SHORT).show();
+                        }
                         updateInvoiceInterface.updateinvoice();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Khong thanh cong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Có lỗi xảy ra...", Toast.LENGTH_SHORT).show();
                     }
                 });
 

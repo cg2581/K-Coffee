@@ -148,8 +148,10 @@ public class UpdateInfoFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (cbChangePassword.isChecked()) {
+                            Toast.makeText(getContext(), "Vui lòng đăng nhập lại!", Toast.LENGTH_SHORT).show();
                             ((HomeUserActivity) getActivity()).signOut();
                         } else {
+                            Toast.makeText(getContext(), "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
                             LoginActivity.saveObjectToSharedPreference(getContext(), "User", "User", user);
                             ((HomeUserActivity) getActivity()).back();
                         }

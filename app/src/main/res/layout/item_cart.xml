@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
     android:background="@color/White"
     android:paddingStart="16dp"
     android:paddingTop="8dp"
-    android:layout_marginBottom="1dp"
     android:paddingEnd="16dp"
     android:paddingBottom="8dp">
 
@@ -27,31 +27,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_toEndOf="@+id/img_food_oder"
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
+            android:gravity="center_vertical"
             android:text="Humber"
-            android:textColor="@color/Black" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/price"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/img_food_oder"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:text="50.000đ"
-            android:textColor="@color/Black" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="bottom|center"
             android:orientation="horizontal">
@@ -69,9 +72,10 @@
             <TextView
                 android:id="@+id/number"
                 android:layout_width="64dp"
-                android:layout_height="match_parent"
+                android:layout_height="24dp"
                 android:text="1"
                 android:textAlignment="center"
+                android:textSize="16sp"
                 tools:textAlignment="center" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -85,5 +89,13 @@
                 android:textSize="10sp" />
         </LinearLayout>
     </LinearLayout>
+
+    <com.example.duan1.Model.SquareImageView
+        android:id="@+id/sivRemove"
+        android:layout_width="24dp"
+        android:layout_height="0dp"
+        android:layout_gravity="end"
+        android:src="@drawable/ic_remove"
+        android:tint="@color/Red" />
 
 </LinearLayout>

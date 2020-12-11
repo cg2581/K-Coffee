@@ -57,7 +57,7 @@
     <string name="zero">0</string>
     <string name="deliveryFee">Phí giao hàng</string>
     <string name="serviceFee">Phí dịch vụ</string>
-    <string name="discount">Giảm giá (5%)</string>
+    <string name="discount">Giảm giá</string>
     <string name="subTotal">Tổng</string>
     <string name="cartInfo">Thông tin giỏ hàng</string>
     <string name="customerInfo">Thông tin khách hàng</string>

@@ -21,8 +21,6 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdapter.ProductViewHolder> implements Filterable {
     ArrayList<Product> productList;
     ArrayList<Product> filteredList;
@@ -51,7 +49,7 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
         holder.tvName.setText(product.getName());
         holder.tvPrice.setText(String.valueOf(product.getPrice()));
         holder.tvCode.setText(String.valueOf(product.getCode()));
-        if (!product.getImage().isEmpty()) {
+        if (!product.getImage().isEmpty() && product.getImage() != null) {
             Picasso.with(context).load(product.getImage()).into(holder.ivProduct);
         }
     }

@@ -106,7 +106,8 @@ public class BlockedUserFragment extends Fragment implements UserDAO.GetAllUserI
 
     @Override
     public void addUser(User user) {
-
+        users.add(user);
+        userAdapter.notifyDataSetChanged();
     }
 
     @Override

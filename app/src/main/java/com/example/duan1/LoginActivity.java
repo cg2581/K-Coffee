@@ -1,5 +1,6 @@
 package com.example.duan1;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -164,8 +165,7 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null) {
             if (user.getRole().equalsIgnoreCase("customer")) {
                 if (user.getStatus().equalsIgnoreCase("blocked")) {
-                    Toast.makeText(getApplicationContext(), "Tài khoản đã bị khóa.\nVui lòng liên hệ admin@kingfood.com để được hỗ trợ", Toast.LENGTH_SHORT).show();
-
+                    showBlockedDialog();
                     FirebaseAuth.getInstance().signOut();
                 } else {
                     Intent i = new Intent(LoginActivity.this, HomeUserActivity.class);
@@ -183,6 +183,21 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Error... Please use another account!", Toast.LENGTH_SHORT).show();
             FirebaseAuth.getInstance().signOut();
         }
+    }
+
+    private void showBlockedDialog() {
+        final Dialog dialog = new Dialog(LoginActivity.this);
+        dialog.setContentView(R.layout.dialog_blocked);
+        dialog.setCancelable(false);
+
+        Button btnConfirm = dialog.findViewById(R.id.btnConfirm);
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void loadAccount() {

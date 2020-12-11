@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class CheckOutFragment extends Fragment implements InvoiceDAO.ConfirmOrde
     CartDAO cartDAO;
     TextView tvTotal, tvDeliveryFee, tvServiceFee, tvDiscount, tvSubTotal, tvFullName, tvAddress, tvPhoneNumber;
     Button btnOrder;
+    CheckBox cbCOD, cbInternetBanking, cbATM;
     SquareImageView sivEdit;
     User user;
     DatabaseReference databaseReference;
@@ -77,6 +79,7 @@ public class CheckOutFragment extends Fragment implements InvoiceDAO.ConfirmOrde
         tvPhoneNumber = view.findViewById(R.id.tvPhoneNumber);
         btnOrder = view.findViewById(R.id.btnOrder);
         sivEdit = view.findViewById(R.id.sivEdit);
+        cbCOD = view.findViewById(R.id.cbCOD);
 
         invoiceDAO = new InvoiceDAO(getContext(), this);
 
@@ -118,6 +121,9 @@ public class CheckOutFragment extends Fragment implements InvoiceDAO.ConfirmOrde
         if (fullName.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()) {
             Toast.makeText(getContext(), "Chưa cập nhật đủ thông tin", Toast.LENGTH_SHORT).show();
             return false;
+        } else if (!cbCOD.isChecked()) {
+            Toast.makeText(getContext(), "Chưa chọn phương thức thanh toán", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
@@ -149,7 +155,13 @@ public class CheckOutFragment extends Fragment implements InvoiceDAO.ConfirmOrde
         total = cartDAO.totalPrice();
         deliveryFee = 20000;
         serviceFee = 1000;
-        discount = (total * 5) / 100;
+        //
+        if (total > 100000) {
+            double data = (double) total * 5 / 100;
+            data = Math.ceil(data / 1000) * 1000;
+            discount = (long) data;
+        }
+        //
         subTotal = total + deliveryFee + serviceFee - discount;
         //
         tvTotal.setText(df.format(total));
@@ -205,6 +217,7 @@ public class CheckOutFragment extends Fragment implements InvoiceDAO.ConfirmOrde
 
     @Override
     public void orderSuccess() {
+        Toast.makeText(getContext(), "Thanh toán thành công", Toast.LENGTH_SHORT).show();
         clearList();
         getActivity().onBackPressed();
     }

@@ -7,11 +7,11 @@
     tools:context=".Fragment.HomeCustomer.MainCustomerFragment">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        style="@style/bottomNavigation"
         android:id="@+id/bnvMain"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_nav_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

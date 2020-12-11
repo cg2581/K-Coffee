@@ -88,31 +88,15 @@ public class UserDAO {
     }
 
     public void getAllByStatus(final String status) {
-        final ArrayList<User> users = new ArrayList<>();
-        databaseReference.orderByChild("role_status").equalTo("customer_" + status)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot item : snapshot.getChildren()) {
-                            User user = item.getValue(User.class);
-                            if (user != null) {
-                                user.setId(item.getKey());
-                                users.add(user);
-
-                            }
-                        }
-                        getAllUserInterface.getAllUser(users);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
         databaseReference.orderByChild("role_status").equalTo("customer_" + status)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        User user = snapshot.getValue(User.class);
+                        if (user != null) {
+                            user.setId(snapshot.getKey());
+                            getAllUserInterface.addUser(user);
+                        }
                     }
 
                     @Override
@@ -146,13 +130,17 @@ public class UserDAO {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(context, "thanh cong", Toast.LENGTH_SHORT).show();
+                        if (type.equalsIgnoreCase("active")) {
+                            Toast.makeText(context, "Mở khóa thành công", Toast.LENGTH_SHORT).show();
+                        } else if (type.equalsIgnoreCase("blocked")) {
+                            Toast.makeText(context, "Khóa thành công", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Khong thanh cong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Có lỗi xảy ra...", Toast.LENGTH_SHORT).show();
                     }
                 });
 

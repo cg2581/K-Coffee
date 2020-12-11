@@ -125,26 +125,31 @@ public class StatisticFragment extends Fragment implements OnChartValueSelectedL
     private boolean validate() {
         String dateFrom = edtFrom.getText().toString();
         String dateTo = edtTo.getText().toString();
-        dateFrom = dateFrom.concat(" 00:00:01");
-        dateTo = dateTo.concat(" 23:59:59");
-        long dateTimeFrom = 0;
-        try {
-            dateTimeFrom = simpleDateFormat.parse(dateFrom).getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        long dateTimeTo = 0;
-        try {
-            dateTimeTo = simpleDateFormat.parse(dateTo).getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
         if (dateFrom.isEmpty() || dateTo.isEmpty()) {
             Toast.makeText(getContext(), "Không được để trống ngày", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (dateTimeFrom < dateTimeTo) {
-            Toast.makeText(getContext(), "Ngày kết thúc phải bằng hoặc lớn hơn ngày bắt đầu", Toast.LENGTH_SHORT).show();
-            return false;
+        } else {
+            dateFrom = dateFrom.concat(" 00:00:01");
+            dateTo = dateTo.concat(" 23:59:59");
+            long dateTimeFrom = 0;
+            try {
+                dateTimeFrom = simpleDateFormat.parse(dateFrom).getTime();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long dateTimeTo = 0;
+            try {
+                dateTimeTo = simpleDateFormat.parse(dateTo).getTime();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //
+            if (dateTimeFrom > dateTimeTo) {
+                Log.e("From to", dateTimeFrom + " " + dateTimeTo);
+                Toast.makeText(getContext(), "Ngày kết thúc phải bằng hoặc lớn hơn ngày bắt đầu", Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
         return true;
     }

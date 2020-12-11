@@ -108,6 +108,8 @@ public class ActiveUserFragment extends Fragment implements UserDAO.GetAllUserIn
 
     @Override
     public void addUser(User user) {
+        users.add(user);
+        userAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -6,19 +6,10 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Thông tin khách hàng"
-        android:textAlignment="center"
-        android:textColor="@color/Black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civAvatar"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:src="@drawable/testlogo" />
@@ -197,32 +188,26 @@
 
     <Button
         android:id="@+id/btnBlock"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
+        style="@style/cancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:background="@drawable/bg_white"
-        android:backgroundTint="@color/Red"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:text="Khóa tài khoản"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
         android:visibility="gone" />
 
     <Button
         android:id="@+id/btnUnBlock"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
+        style="@style/confirmButton2"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:background="@drawable/bg_white"
-        android:backgroundTint="@color/Green"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Mở khóa tài khoản"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
+        android:text="Mở tài khoản"
         android:visibility="gone" />
 
 </LinearLayout>

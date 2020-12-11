@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.Activity.HomeUserActivity;
+import com.example.duan1.ActivityAdmin.HomeAdminActivity;
 import com.example.duan1.Adapter.InvoiceAdminAdapter;
 import com.example.duan1.DAO.InvoiceDAO;
 import com.example.duan1.Fragment.HomeAdmin.InvoiceDetailAdminFragment;
@@ -132,6 +133,6 @@ public class CancelledInvoiceFragment extends Fragment implements InvoiceDAO.Get
 
     @Override
     public void showDetail(int position) {
-        ((HomeUserActivity) getActivity()).switchFragment(new InvoiceDetailAdminFragment(invoices.get(position).getId()));
+        ((HomeAdminActivity) getActivity()).switchFragment(new InvoiceDetailAdminFragment(invoices.get(position).getId()));
     }
 }

@@ -67,7 +67,7 @@ public class AddProductFragment extends Fragment implements ProductDAO.InsertPro
                 if (validate()) {
                     String name = edtName.getText().toString();
                     String code = edtCode.getText().toString();
-                    String describe = edtCode.getText().toString();
+                    String describe = edtDescribe.getText().toString();
                     long price = Long.parseLong(edtPrice.getText().toString());
                     Product product = new Product(type, name, code, price, describe);
                     productDAO.insertProduct(product, uri);
@@ -93,7 +93,7 @@ public class AddProductFragment extends Fragment implements ProductDAO.InsertPro
     }
 
     private boolean validate() {
-        if (edtName.getText().toString().isEmpty() || edtCode.getText().toString().isEmpty() || edtDescribe.getText().toString().isEmpty() || edtPrice.getText().toString().isEmpty() || uri == null) {
+        if (edtName.getText().toString().isEmpty() || edtCode.getText().toString().isEmpty() || edtPrice.getText().toString().isEmpty() || uri == null) {
             Toast.makeText(getContext(), "Các trường không được để trống", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -117,6 +117,7 @@ public class AddProductFragment extends Fragment implements ProductDAO.InsertPro
 
     @Override
     public void insertSuccess() {
+        ((HomeAdminActivity) getActivity()).uri = null;
         getActivity().onBackPressed();
     }
 

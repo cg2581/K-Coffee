@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.duan1.DAO.CartDAO;
 import com.example.duan1.Model.CartItem;
 import com.example.duan1.Model.Product;
+import com.example.duan1.Model.SquareImageView;
 import com.example.duan1.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -96,12 +97,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     holder.txtNumber.setText(String.valueOf(cart.getQuantity()));
                     cartDAO.update(cart);
                     cartAdapterInterface.update();
-                } else if (cart.getQuantity() == 1) {
-                    cartDAO.delete(cart);
-                    list.remove(position);
-                    notifyDataSetChanged();
-                    cartAdapterInterface.update();
                 }
+            }
+        });
+        holder.sivRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartDAO.delete(cart);
+                list.remove(position);
+                notifyDataSetChanged();
+                cartAdapterInterface.update();
             }
         });
     }
@@ -116,13 +121,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
+        SquareImageView sivRemove;
         private ImageView ivProduct;
         private TextView txtName, txtPrice, txtNumber;
         private AppCompatButton btnPlus, btnMinus;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            sivRemove = itemView.findViewById(R.id.sivRemove);
             ivProduct = itemView.findViewById(R.id.ivProduct);
             txtName = itemView.findViewById(R.id.name);
             txtPrice = itemView.findViewById(R.id.price);
