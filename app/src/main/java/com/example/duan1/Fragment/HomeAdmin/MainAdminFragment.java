@@ -17,8 +17,8 @@ import com.example.duan1.ActivityAdmin.HomeAdminActivity;
 import com.example.duan1.Adapter.InvoiceAdminAdapter;
 import com.example.duan1.Adapter.MenuAdapter;
 import com.example.duan1.Model.Invoice;
-import com.example.duan1.Model.MenuItem;
 import com.example.duan1.Model.Material.SquareImageView;
+import com.example.duan1.Model.MenuItem;
 import com.example.duan1.Model.User;
 import com.example.duan1.R;
 import com.google.firebase.database.ChildEventListener;
@@ -116,7 +116,7 @@ public class MainAdminFragment extends Fragment implements MenuAdapter.MenuInter
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         Invoice invoice = snapshot.getValue(Invoice.class);
                         invoice.setId(snapshot.getKey());
-                        invoices.add(0,invoice);
+                        invoices.add(0, invoice);
                         invoiceAdminAdapter.notifyDataSetChanged();
                         if (invoices.size() == 0) {
                             tvOrder.setVisibility(View.GONE);
@@ -199,8 +199,6 @@ public class MainAdminFragment extends Fragment implements MenuAdapter.MenuInter
     @Override
     public void onResume() {
         super.onResume();
-        ((HomeAdminActivity) getActivity()).currentMenu = R.menu.blank;
-        getActivity().invalidateOptionsMenu();
         ((HomeAdminActivity) getActivity()).getSupportActionBar().setTitle("Quản lí");
         ((HomeAdminActivity) getActivity()).changeBackButton();
     }
@@ -214,4 +212,5 @@ public class MainAdminFragment extends Fragment implements MenuAdapter.MenuInter
     public void showDetail(int position) {
         ((HomeAdminActivity) getActivity()).switchFragment(new InvoiceDetailAdminFragment(invoices.get(position).getId()));
     }
+
 }

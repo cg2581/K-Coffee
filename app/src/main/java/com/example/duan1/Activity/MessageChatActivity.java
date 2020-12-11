@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.Adapter.MessageChatAdapter;
 import com.example.duan1.LoginActivity;
-import com.example.duan1.Model.MessageChatModel;
+import com.example.duan1.Model.Message;
 import com.example.duan1.Model.User;
 import com.example.duan1.R;
 import com.google.firebase.database.ChildEventListener;
@@ -29,12 +29,12 @@ import java.util.Date;
 
 public class MessageChatActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
-    ArrayList<MessageChatModel> listMessageChat;
+    ArrayList<Message> listMessageChat;
     EditText messageET;
     TextView txtFullName;
     ImageView btnSend;
     RecyclerView recyclerMessageChat;
-    MessageChatModel messageChatModel;
+    Message messageChatModel;
     User user;
     String id,name;
     MessageChatAdapter messageChatAdapter;
@@ -50,7 +50,7 @@ public class MessageChatActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         user = new User();
-        messageChatModel = new MessageChatModel();
+        messageChatModel = new Message();
         listMessageChat = new ArrayList<>();
         user = LoginActivity.getSavedObjectFromPreference(getApplicationContext(), "User", "User", User.class);
 
@@ -63,7 +63,7 @@ public class MessageChatActivity extends AppCompatActivity {
                     String message = messageET.getText().toString();
                     Date today = new Date();
                     Long time = today.getTime();
-                    messageChatModel = new MessageChatModel(message,time,"customer",user.getFullName());
+                    messageChatModel = new Message(message,time,"customer",user.getFullName());
                     databaseReference.child("Message").child(user.getId()).push().setValue(messageChatModel);
                     messageET.setText(null);
                 }else{
@@ -72,7 +72,7 @@ public class MessageChatActivity extends AppCompatActivity {
                     String message = messageET.getText().toString();
                     Date today = new Date();
                     Long time = today.getTime();
-                    messageChatModel = new MessageChatModel(message,time,"admin",user.getFullName());
+                    messageChatModel = new Message(message,time,"admin",user.getFullName());
                     databaseReference.child("Message").child(id).push().setValue(messageChatModel);
                     messageET.setText(null);
                 }
@@ -86,7 +86,7 @@ public class MessageChatActivity extends AppCompatActivity {
         databaseReference.child("Message").child(user.getId()).orderByChild("viewType_userId").equalTo("customer").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                MessageChatModel messageChatModel = snapshot.getValue(MessageChatModel.class);
+                Message messageChatModel = snapshot.getValue(Message.class);
                 messageChatModel.setId(snapshot.getKey());
                 listMessageChat.add(messageChatModel);
                 Collections.reverse(listMessageChat);
@@ -120,7 +120,7 @@ public class MessageChatActivity extends AppCompatActivity {
         databaseReference.child("Message").child(user.getId()).orderByChild("viewType_userId").equalTo("admin").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                MessageChatModel messageChatModel = snapshot.getValue(MessageChatModel.class);
+                Message messageChatModel = snapshot.getValue(Message.class);
                 messageChatModel.setId(snapshot.getKey());
                 listMessageChat.add(messageChatModel);
                 Collections.reverse(listMessageChat);
@@ -161,7 +161,7 @@ public class MessageChatActivity extends AppCompatActivity {
             databaseReference.child("Message").child(id).orderByChild("viewType_userId").equalTo("admin").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    MessageChatModel messageChatModel = snapshot.getValue(MessageChatModel.class);
+                    Message messageChatModel = snapshot.getValue(Message.class);
                     messageChatModel.setId(snapshot.getKey());
                     listMessageChat.add(messageChatModel);
                     recyclerMessageChat.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -194,7 +194,7 @@ public class MessageChatActivity extends AppCompatActivity {
             databaseReference.child("Message").child(id).orderByChild("viewType_userId").equalTo("customer").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    MessageChatModel messageChatModel = snapshot.getValue(MessageChatModel.class);
+                    Message messageChatModel = snapshot.getValue(Message.class);
                     messageChatModel.setId(snapshot.getKey());
                     listMessageChat.add(messageChatModel);
                     recyclerMessageChat.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

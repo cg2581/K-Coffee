@@ -88,10 +88,16 @@ public class ProductManageFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         ((HomeAdminActivity) getActivity()).currentMenu = R.menu.product;
         getActivity().invalidateOptionsMenu();
-        ((HomeAdminActivity) getActivity()).getSupportActionBar().setTitle("Sản phẩm");
+        ((HomeAdminActivity) getActivity()).getSupportActionBar().setTitle("Tin nhắn");
         ((HomeAdminActivity) getActivity()).changeBackButton();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((HomeAdminActivity) getActivity()).currentMenu = R.menu.message;
+        getActivity().invalidateOptionsMenu();
     }
 }

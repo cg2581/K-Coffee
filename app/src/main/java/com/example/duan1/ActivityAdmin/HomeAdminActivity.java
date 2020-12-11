@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.duan1.Fragment.HomeAdmin.MainAdminFragment;
+import com.example.duan1.Fragment.HomeAdmin.MessageManageFragment;
 import com.example.duan1.Fragment.HomeAdmin.Product.AddProductFragment;
 import com.example.duan1.LoginActivity;
 import com.example.duan1.Model.User;
@@ -26,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HomeAdminActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     public static User user;
-    public int currentMenu = R.menu.blank;
+    public int currentMenu = R.menu.message;
     public Uri uri;
     FrameLayout flHomeAdmin;
     Toolbar tHomeAdmin;
@@ -82,6 +83,9 @@ public class HomeAdminActivity extends AppCompatActivity {
                 break;
             case R.id.addDrink:
                 switchFragment(new AddProductFragment("Drink"));
+                break;
+            case R.id.message:
+                switchFragment(new MessageManageFragment());
                 break;
         }
         return true;

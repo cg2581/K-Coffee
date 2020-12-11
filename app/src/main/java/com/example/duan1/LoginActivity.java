@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,10 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.duan1.Activity.HomeUserActivity;
 import com.example.duan1.ActivityAdmin.HomeAdminActivity;
 import com.example.duan1.Model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin, btnRegister;
     EditText edtUsername, edtPassword;
     TextInputLayout textInputLayout;
-    String username, password;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     CheckBox checkBox;
@@ -76,11 +72,14 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("User");
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            edtUsername.setText(extras.getString("email", ""));
+            textInputLayout.getEditText().setText(extras.getString("password", ""));
+        }
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         Date date = new Date();
-        Log.e("Date format", "onCreate: " + simpleDateFormat.format(date));
-        Log.e("Time stamp", "onCreate: " + date.getTime());
-        Log.e("Reversed", "onCreate: " + simpleDateFormat.format(new Date(date.getTime())));
 
         checkLogin();
         //LoadLogin();
@@ -92,42 +91,39 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-/*
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = edtUsername.getText().toString();
-                password = textInputLayout.getEditText().getText().toString();
-                if (username.equalsIgnoreCase("Admin") && password.equals("admin")) {
-                    Intent i = new Intent(LoginActivity.this, HomeAdmin.class);
-                    startActivity(i);
-                    finish();
-                } else {
-                    Login();
+                final String email = edtUsername.getText().toString();
+                String password = textInputLayout.getEditText().getText().toString();
+                if (validate(email, password)) {
+
+                    firebaseAuth.signInWithEmailAndPassword(email, password)
+                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    saveUser(email);
+                                }
+
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không đúng, vui lòng đăng nhập lại!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 }
             }
-        });*/
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String username = edtUsername.getText().toString();
-                String password = textInputLayout.getEditText().getText().toString();
-                firebaseAuth.signInWithEmailAndPassword(username, password)
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                saveUser(username);
-                            }
-
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(LoginActivity.this, "Failed... please try again!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
         });
+    }
+
+    private boolean validate(String email, String password) {
+        if (email.trim().isEmpty() || password.trim().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Các trường không được để trống", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
     private void saveUser(String email) {
@@ -137,7 +133,6 @@ public class LoginActivity extends AppCompatActivity {
                 for (DataSnapshot item : snapshot.getChildren()) {
                     User user = item.getValue(User.class);
                     user.setId(item.getKey());
-                    Log.e("ZZ", "onDataChange: " + user.toString());
                     saveObjectToSharedPreference(getApplicationContext(), "User", "User", user);
                 }
                 checkUser();
@@ -155,8 +150,6 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
             checkUser();
-        } else {
-            loadAccount();
         }
     }
 
@@ -170,13 +163,11 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Intent i = new Intent(LoginActivity.this, HomeUserActivity.class);
                     startActivity(i);
-                    saveAccount();
                     finish();
                 }
             } else if (user.getRole().equalsIgnoreCase("admin")) {
                 Intent i = new Intent(LoginActivity.this, HomeAdminActivity.class);
                 startActivity(i);
-                saveAccount();
                 finish();
             }
         } else {
@@ -200,59 +191,6 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void loadAccount() {
-        SharedPreferences pref = getSharedPreferences("infoUser.dat", MODE_PRIVATE);
-        boolean check = pref.getBoolean("check", false);
-        if (check) {
-            edtUsername.setText(pref.getString("username", ""));
-            edtPassword.setText(pref.getString("password", ""));
-            checkBox.setChecked(check);
-        }
-    }
-
-    private void saveAccount() {
-        String username = edtUsername.getText().toString();
-        String password = edtPassword.getText().toString();
-        SharedPreferences preferences = getSharedPreferences("infoUser.dat", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        if (checkBox.isChecked()) {
-            editor.putString("username", username);
-            editor.putString("password", password);
-            editor.putBoolean("check", true);
-        } else {
-            editor.clear();
-        }
-        editor.commit();
-    }
-
-    public void Login() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        username = edtUsername.getText().toString();
-        password = textInputLayout.getEditText().getText().toString();
-        if (username.isEmpty() || password.isEmpty()) {
-            edtUsername.setError("Don't Empty Email or Password");
-        } else {
-            edtUsername.setError(null);
-            final boolean check = checkBox.isChecked();
-            firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        SaveUser(username, password, check);
-                        Intent i2 = new Intent(LoginActivity.this, HomeUserActivity.class);
-                        startActivity(i2);
-                        finish();
-                        Toast.makeText(LoginActivity.this, "Login Succesfully", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-
-    }
 
     private void SaveUser(String username, String password, boolean check) {
         SharedPreferences preferences = getSharedPreferences("infoUser.dat", MODE_PRIVATE);

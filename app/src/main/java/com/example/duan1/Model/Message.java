@@ -4,24 +4,24 @@ import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
 
-public class MessageChatModel implements Serializable {
+public class Message implements Serializable {
     private String text;
     private Long time;
     private String viewType_userId;
     private String userId;
-    private String fullname;
+    private String fullName;
     private String id;
 
 
-    public MessageChatModel() {
+    public Message() {
     }
 
 
-    public MessageChatModel(String text, Long time, String viewType, String fullname) {
+    public Message(String text, Long time, String viewType, String fullName) {
         this.text = text;
         this.time = time;
         this.viewType_userId = viewType;
-        this.fullname = fullname;
+        this.fullName = fullName;
     }
 
     @Exclude
@@ -67,10 +67,22 @@ public class MessageChatModel implements Serializable {
     }
 
     public String getFullname() {
-        return fullname;
+        return fullName;
     }
 
     public void setFullname(String fullname) {
-        this.fullname = fullname;
+        this.fullName = fullname;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "text='" + text + '\'' +
+                ", time=" + time +
+                ", viewType_userId='" + viewType_userId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", id='" + id + '\'' +
+                '}';
     }
 }

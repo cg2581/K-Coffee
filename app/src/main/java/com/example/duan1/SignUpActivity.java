@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
-    EditText edtEmail;
+    EditText edtEmail, edtFullName;
     TextInputLayout edtPassword, edtRePassword;
     FirebaseAuth firebaseAuth;
     Button btnSignUp, btnCancel;
@@ -32,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        edtFullName = findViewById(R.id.edtFullName);
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.pass);
         edtRePassword = findViewById(R.id.RetypePassword);
@@ -58,11 +59,14 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void SignUp() {
         firebaseAuth = FirebaseAuth.getInstance();
-        final String Email = edtEmail.getText().toString();
+        final String fullName = edtFullName.getText().toString();
+        final String email = edtEmail.getText().toString();
         String Password = edtPassword.getEditText().getText().toString();
         String rePassword = edtRePassword.getEditText().getText().toString();
-        if (Email.isEmpty()) {
-            edtEmail.setError("Don't Empty Email");
+        if (fullName.isEmpty()) {
+            edtFullName.setError("Không được để trống họ tên");
+        } else if (email.isEmpty()) {
+            edtEmail.setError("Không được để trống email");
         } else if (Password.isEmpty()) {
             edtPassword.setError("Don't Empty Password");
         } else if (!rePassword.equals(Password)) {
@@ -72,13 +76,12 @@ public class SignUpActivity extends AppCompatActivity {
                 edtEmail.setError(null);
                 edtRePassword.setError(null);
                 edtPassword.setError(null);
-                firebaseAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                firebaseAuth.createUserWithEmailAndPassword(email, Password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //FirebaseUser user = firebaseAuth.getCurrentUser();
-                            createUser(Email);
-                            Toast.makeText(SignUpActivity.this, "Sign-Up Succesfully", Toast.LENGTH_SHORT).show();
+                            createUser(email, fullName);
                         } else {
 
                         }
@@ -89,20 +92,25 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    private void createUser(String email) {
-        User user = new User("customer", email, "", "", "", "", "active");
+    private void createUser(String email, String fullName) {
+        User user = new User("customer", email, fullName, "", "", "", "active");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User");
         databaseReference.push().setValue(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(SignUpActivity.this, "Successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        intent.putExtra("email", edtEmail.getText().toString());
+                        intent.putExtra("password", edtPassword.getEditText().getText().toString());
+                        startActivity(intent);
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SignUpActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

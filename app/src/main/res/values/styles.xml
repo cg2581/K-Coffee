@@ -5,6 +5,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+
     </style>
 
 
@@ -139,6 +142,10 @@
         <item name="android:background">@drawable/bg_nav_bottom</item>
         <item name="itemIconTint">@color/Black</item>
         <item name="itemTextColor">@color/Black</item>
+    </style>
+
+    <style name="Widget.ActionButton.Overflow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_add</item>
     </style>
 
 </resources>

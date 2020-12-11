@@ -84,7 +84,7 @@ public class PersonFragment extends Fragment {
         llSupportCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Tính năng chưa được hỗ trợ", Toast.LENGTH_SHORT).show();
+                ((HomeUserActivity) getActivity()).switchFragment(new MessageDetailFragment());
             }
         });
         btnSignOut.setOnClickListener(new View.OnClickListener() {

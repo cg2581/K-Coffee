@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.Activity.MessageChatActivity;
-import com.example.duan1.Model.MessageChatModel;
+import com.example.duan1.Model.Message;
 import com.example.duan1.R;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MessageChatAdapter extends RecyclerView.Adapter {
 
-    List<MessageChatModel> messageChatModelList;
+    List<Message> messageChatModelList;
     MessageChatActivity messageChatActivity;
     Context context;
 
@@ -29,7 +29,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter {
     public static String ID = null;
     SimpleDateFormat simpleDateFormat;
 
-    public MessageChatAdapter(List<MessageChatModel> messageChatModelList, Context context, MessageChatActivity messageChatActivity) {
+    public MessageChatAdapter(List<Message> messageChatModelList, Context context, MessageChatActivity messageChatActivity) {
         this.messageChatModelList = messageChatModelList;
         this.context = context;
         this.messageChatActivity = messageChatActivity;
@@ -38,7 +38,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        MessageChatModel message = messageChatModelList.get(position);
+        Message message = messageChatModelList.get(position);
         if (message.getViewType_userId().equalsIgnoreCase("Customer")){
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -65,7 +65,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        MessageChatModel message = messageChatModelList.get(position);
+        Message message = messageChatModelList.get(position);
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:
                 ((SentMessageHolder) holder).bind(message);
@@ -90,7 +90,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(this);
         }
 
-        void bind(MessageChatModel messageModel) {
+        void bind(Message messageModel) {
             message.setText(messageModel.getText());
             simpleDateFormat = new SimpleDateFormat("dd/MM/yyyyy HH:mm:ss");
             time.setText(simpleDateFormat.format(new Date(messageModel.getTime())));
@@ -112,7 +112,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(this);
         }
 
-        void bind(MessageChatModel messageModel){
+        void bind(Message messageModel){
             message.setText(messageModel.getText());
             simpleDateFormat = new SimpleDateFormat("dd/MM/yyyyy HH:mm:ss");
             time.setText(simpleDateFormat.format(new Date(messageModel.getTime())));
